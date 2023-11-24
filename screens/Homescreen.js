@@ -65,7 +65,7 @@ export default function Homescreen({ navigation }) {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.startButton}
-        onPress={() => navigation.navigate("Game")}
+        onPress={() => navigation.navigate("Options")}
       >
         <Text style={styles.startButtonText}>{t('start')}</Text>
       </TouchableOpacity>

@@ -18,6 +18,7 @@ const Board = ({ sudokuData, onPress }) => {
               ]}
             >
               <Cell value={cellData}
+              isEditable={cellData == null}
                onPress={() => onPress(rowIndex, columnIndex)}/>
             </View>
           ))}

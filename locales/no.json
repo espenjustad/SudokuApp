@@ -4,5 +4,12 @@
     "show-description": "Beskrivelse & Regler",
     "start": "Start Spill",
     "close": "Lukk",
-    "rules": "Sudoku-rutenettet består av 9x9 plasser. \nDu kan bare bruke tall fra 1 til 9. \nHver 3x3 blokk kan bare inneholde tall fra 1 til 9.\nHver vertikale kolonne kan bare inneholde tall fra 1 til 9.\nHver horisontale rad kan bare inneholde tall fra 1 til 9. \nHvert tall i 3x3 blokken, vertikale kolonnen eller horisontale raden kan bare brukes én gang. \nSpillet er over når hele Sudoku-rutenettet er riktig fylt med tall."
+    "rules": "Sudoku-rutenettet består av 9x9 plasser. \nDu kan bare bruke tall fra 1 til 9. \nHver 3x3 blokk kan bare inneholde tall fra 1 til 9.\nHver vertikale kolonne kan bare inneholde tall fra 1 til 9.\nHver horisontale rad kan bare inneholde tall fra 1 til 9. \nHvert tall i 3x3 blokken, vertikale kolonnen eller horisontale raden kan bare brukes én gang. \nSpillet er over når hele Sudoku-rutenettet er riktig fylt med tall.",
+    "create-game": "Opprett Brett",
+    "hard": "Vanskelig",
+    "medium": "Middels",
+    "easy": "Lett",
+    "main-menu": "Hovedmeny",
+    "remove": "Fjern",
+    "mark": "Marker/Fjern Markering"
 }

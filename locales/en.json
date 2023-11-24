@@ -4,5 +4,13 @@
     "show-description": "Description & rules",
     "start": "Start Game",
     "close": "Close",
-    "rules": "Sudoku grid consists of 9x9 spaces. \nYou can use only numbers from 1 to 9. \nEach 3×3 block can only contain numbers from 1 to 9.\nEach vertical column can only contain numbers from 1 to 9. \nEach horizontal row can only contain numbers from 1 to 9. \nEach number in the 3×3 block, vertical column or horizontal row can be used only once. \nThe game is over when the whole Sudoku grid is correctly filled with numbers."
+    "rules": "Sudoku grid consists of 9x9 spaces. \nYou can use only numbers from 1 to 9. \nEach 3×3 block can only contain numbers from 1 to 9.\nEach vertical column can only contain numbers from 1 to 9. \nEach horizontal row can only contain numbers from 1 to 9. \nEach number in the 3×3 block, vertical column or horizontal row can be used only once. \nThe game is over when the whole Sudoku grid is correctly filled with numbers.",
+    "create-game": "Create game",
+    "hard": "Hard",
+    "medium": "Medium",
+    "easy": "Easy",
+    "main-menu": "Main Menu",
+    "remove": "Remove",
+    "mark": "Mark/Unmark"
+
 }

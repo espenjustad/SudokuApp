@@ -1,35 +1,81 @@
-import { StyleSheet, Text, View, Image, Button, Modal, FlatList, TouchableOpacity} from 'react-native';
-import Board from '../components/Board';
+// SudokuHomeScreen.js
+import React from 'react';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
-export default function Optionsscreen() {
-    
-    const sudokuData = [
-        [5, 3, null,  null, 7, null,  null, null, null],
-        [6, null, null, 1, 9, 5, null, null, null],
-        [null, 9, 8,  null, null, null, null, 6, null],
-        [8, null, null, null, 6, null, null, null, 3],
-        [4, null, null, 8, null, 3, null, null, 1],
-        [7, null, null, null, 2, null, null, null, 6],
-        [null, 6, null, null, null, null, 2, 8, null],
-        [null, null, null, 4, 1, 9, null, null, 5],
-        [null, null, null, null, 8, null, null, 7, 9],
-      ];
-    return(
-        <View style={styles.container}>
-            <Board sudokuData={sudokuData}></Board>
-      </View>
-    );
+export default function SudokuHomeScreen({ navigation }) {
+  const {t} = useTranslation()
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Sudoku</Text>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Game')}
+      >
+        <Text style={styles.buttonText}>{t('easy')}</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Game')}
+      >
+        <Text style={styles.buttonText}>{t('medium')}</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Game')}
+      >
+        <Text style={styles.buttonText}>{t('hard')}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('CreateNewBoard')}
+      >
+        <Text style={styles.buttonText}>{t('create-game')}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Home')}
+      >
+        <Text style={styles.buttonText}>{t('main-menu')}</Text>
+      </TouchableOpacity>
+    </View>
+  );
 }
 
+
+
+
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#753742',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    buttonText: {
-        fontSize: 20,
-        color: 'white',
-      },
+  container: {
+    flex: 1,
+    backgroundColor: '#753742',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    color: 'black',
+    fontSize: 50,
+    fontWeight: 'bold',
+    backgroundColor: 'white',
+    borderColor: '#001021',
+    borderWidth: 3,
+    padding: 6,
+    marginBottom: 20,
+  },
+  button: {
+    backgroundColor: '#001021',
+    padding: 10,
+    borderRadius: 10,
+    borderColor: 'black',
+    borderWidth: 2,
+    marginBottom: 15,
+    width: 200,
+    alignItems: 'center',
+  },
+  buttonText: {
+    fontSize: 30,
+    color: 'white',
+  },
 });
