@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const Cell = ({ value, isEditable, onPress }) => {
+const Cell = ({ value, isEditable, onPress, isMarked }) => {
+  
   return (
         <TouchableOpacity onPress={onPress} style={styles.container}>
-            <Text style={styles.buttonText}>{value}</Text>
+             <Text style={[styles.buttonText, isMarked && styles.markedText]}>{value}</Text>
         </TouchableOpacity>
     
   );
@@ -22,6 +23,10 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 30,
     color: 'black',
+  },
+  markedText: {
+    fontSize: 30,
+    color: 'orange', // Change this to the color you want for marked numbers
   },
 });
 

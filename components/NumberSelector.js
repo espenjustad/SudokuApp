@@ -9,6 +9,7 @@ const NumberSelector = ({ onPress }) => {
   const handleNumberPress = (number) => {
     if(number === selectedNumber) {
         setSelectedNumber(null)
+        onPress(number)
     } else {
         setSelectedNumber(number);
         onPress(number)

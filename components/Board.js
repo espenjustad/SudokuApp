@@ -4,7 +4,7 @@ import { View, StyleSheet } from 'react-native';
 import Cell from './Cell';
 
 
-const Board = ({ sudokuData, onPress }) => {
+const Board = ({ sudokuData, onPress, markedCell }) => {
   return (
     <View style={styles.board}>
       {sudokuData.map((rowData, rowIndex) => (
@@ -18,8 +18,9 @@ const Board = ({ sudokuData, onPress }) => {
               ]}
             >
               <Cell value={cellData}
-              isEditable={cellData == null}
-               onPress={() => onPress(rowIndex, columnIndex)}/>
+                isEditable={cellData == null}
+                isMarked={markedCell.row == rowIndex && markedCell.column == columnIndex}
+                onPress={() => onPress(rowIndex, columnIndex)}/>
             </View>
           ))}
         </View>

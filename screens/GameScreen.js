@@ -11,6 +11,7 @@ export default function GameScreen() {
   const [selectedNumber, setSelectedNumber] = useState(null)
   const [removeSelected, setRemoveSelected] = useState(false)
   const [markSelected, setMarkSelected] = useState(false)
+  const [markedCell, setMarkedCell] = useState({row: null, column: null});
 
   const [SudokuData, setSudokuData] = useState([
     [5, 3, null,  null, 7, null,  null, null, null],
@@ -24,6 +25,13 @@ export default function GameScreen() {
     [null, null, null, null, 8, null, null, 7, 9],
   ])
 
+  function handleNumberPress(number) {
+    if(number == selectedNumber) {
+      setSelectedNumber(null)
+    } else {
+      setSelectedNumber(number)
+    }
+  }
 
   function handleCellPress(rowIndex, columnIndex) {
     setSudokuData((prevData) => {
@@ -32,9 +40,15 @@ export default function GameScreen() {
       if(removeSelected) {
         newData[rowIndex][columnIndex] = null
       } else if (markSelected) {
-        newData[rowIndex][columnIndex] = null
+        if (markedCell.row === rowIndex && markedCell.column === columnIndex) {
+          setMarkedCell({row: null, column: null});
+        } else {
+          setMarkedCell({ row: rowIndex, column: columnIndex });
+        }
       } else {
-        newData[rowIndex][columnIndex] = selectedNumber;
+        if(selectedNumber !== null) {
+          newData[rowIndex][columnIndex] = selectedNumber;
+        }
       }
       return newData;
     });
@@ -42,10 +56,16 @@ export default function GameScreen() {
   }
 
   function handleRemoveNumber() {
+    if(markSelected) {
+      setMarkSelected(!markSelected)
+    }
     setRemoveSelected(!removeSelected)
   }
 
   function handleMarkAsUnsure() {
+    if(removeSelected) {
+      setRemoveSelected(!removeSelected)
+    }
    setMarkSelected(!markSelected)
   }
   
@@ -53,8 +73,12 @@ export default function GameScreen() {
 
     return(
         <View style={styles.container}>
-            <Board sudokuData={SudokuData} onPress={(rowIndex, columnIndex) => handleCellPress(rowIndex, columnIndex)}></Board>
-            <NumberSelector onPress={(number) => setSelectedNumber(number)}></NumberSelector>
+             <Board
+                sudokuData={SudokuData}
+                onPress={(rowIndex, columnIndex) => handleCellPress(rowIndex, columnIndex)}
+                markedCell={markedCell}
+              />
+            <NumberSelector onPress={(number) => handleNumberPress(number)}></NumberSelector>
             <View style={styles.buttonsContainer}>
               <TouchableOpacity
                 style={[styles.normalButton, removeSelected && styles.selectedButton]}

@@ -22,7 +22,7 @@ export default function Homescreen({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.title}>Sudoku</Text>
       <Image source={logoImg}></Image>
-      <Modal visible={languageVisible} onRequestClose={() => setLanguageVisible(false)}>
+      <Modal animationType="slide" visible={languageVisible} onRequestClose={() => setLanguageVisible(false)}>
         <View style={styles.languagesList}>
           <FlatList
             data={Object.keys(languageResources)}
@@ -44,7 +44,7 @@ export default function Homescreen({ navigation }) {
       >
         <Text style={styles.buttonText}>{t('change-language')}</Text>
       </TouchableOpacity>
-      <Modal visible={descriptionVisible} onRequestClose={() => setDescriptionVisible(false)}>
+      <Modal animationType="slide" visible={descriptionVisible} onRequestClose={() => setDescriptionVisible(false)}>
         <View style={styles.container}>
             <View>
             <Text style={styles.descriptionView}>{t('rules')}</Text>
