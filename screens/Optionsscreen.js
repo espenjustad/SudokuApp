@@ -10,21 +10,21 @@ export default function SudokuHomeScreen({ navigation }) {
       <Text style={styles.title}>Sudoku</Text>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Game')}
+        onPress={() => navigation.navigate('Game', { difficulty: 'easy' })}
       >
         <Text style={styles.buttonText}>{t('easy')}</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Game')}
+        onPress={() => navigation.navigate('Game', { difficulty: 'medium' })}
       >
         <Text style={styles.buttonText}>{t('medium')}</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Game')}
+        onPress={() => navigation.navigate('Game', { difficulty: 'hard' })}
       >
         <Text style={styles.buttonText}>{t('hard')}</Text>
       </TouchableOpacity>
@@ -43,8 +43,6 @@ export default function SudokuHomeScreen({ navigation }) {
     </View>
   );
 }
-
-
 
 
 const styles = StyleSheet.create({

@@ -4,6 +4,7 @@ import NumberSelector from '../components/NumberSelector';
 import React, {useState} from 'react';
 import { useTranslation } from 'react-i18next';
 import SelectDropdown from 'react-native-select-dropdown'
+import { saveSudokuBoard } from '../utils/SudokuUtils';
 
 
 
@@ -11,6 +12,7 @@ export default function CreateBoardScreen() {
   
   const {t} = useTranslation()
   const choices = [t('easy'), t('medium'), t('hard')]
+  const [selectedDifficulty, setSelectedDifficulty] = useState(null)
   const [selectedNumber, setSelectedNumber] = useState(null)
   const [removeSelected, setRemoveSelected] = useState(false)
   const [markSelected, setMarkSelected] = useState(false)
@@ -63,7 +65,13 @@ export default function CreateBoardScreen() {
   }
 
   function handleSave() {
-    
+    saveSudokuBoard(selectedDifficulty, SudokuData)
+        .then(() => {
+            console.log(`Sudoku board for ${selectedDifficulty} saved successfully.`);
+        })
+        .catch((error) => {
+            console.error('Error saving Sudoku board:', error);
+  });
   }
   
     return(
@@ -85,9 +93,19 @@ export default function CreateBoardScreen() {
                 buttonTextStyle={styles.buttonText}
                 data={choices}
                 onSelect={(selectedItem, index) => {
-                    console.log(selectedItem, index)
+                    switch (index) {
+                        case 0:
+                            setSelectedDifficulty('easy')
+                            break;
+                        case 1:
+                            setSelectedDifficulty('medium')
+                            break;
+                        case 2:
+                            setSelectedDifficulty('hard')
+                            break;
+                    }
                 }}
-                buttonTextAfterSelection={(selectedItem, index) => {
+                buttonTextAfterSelection={(selectedItem) => {
                     return selectedItem
                 }}
                 rowTextForSelection={(item, index) => {

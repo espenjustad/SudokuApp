@@ -3,10 +3,13 @@ import Board from '../components/Board';
 import NumberSelector from '../components/NumberSelector';
 import React, {useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { loadSudokuBoard, loadAllSudokuBoards } from '../utils/SudokuUtils';
 
 
 
-export default function GameScreen({ navigation }) {
+
+
+export default function GameScreen({ navigation, route }) {
   const {t} = useTranslation()
   const [selectedNumber, setSelectedNumber] = useState(null)
   const [removeSelected, setRemoveSelected] = useState(false)
@@ -16,20 +19,23 @@ export default function GameScreen({ navigation }) {
   const [boardIsFinished, setBoardIsFinished] = useState(false)
 
   const [SudokuData, setSudokuData] = useState([
-    [5, 3, 4, 6, 7, 8, 9, 1, 2],
-    [6, 7, 2, 1, 9, 5, 3, 4, 8],
-    [1, 9, 8, 3, 4, 2, 5, 6, 7],
-    [8, 5, 9, 7, 6, 1, 4, 2, 3],
-    [4, 2, 6, 8, 5, 3, 7, 9, 1],
-    [7, 1, 3, 9, 2, 4, 8, 5, 6],
-    [9, 6, 1, 5, 3, 7, 2, 8, 4],
-    [2, 8, 7, 4, 1, 9, 6, 3, 5],
-    [3, 4, 5, 2, 8, 6, 1, 7, null], // One cell with null
   ])
 
   useEffect(() => {
-    checkIfBoardIsFilled();
-  }, [SudokuData]);
+    const { difficulty } = route.params;
+    const loadBoard = async () => {
+      const boardData = await loadSudokuBoard(difficulty);
+      console.log(boardData)
+      if (boardData) {
+        setSudokuData(boardData);
+      } else {
+        console.error('Error loading Sudoku board for difficulty:', difficulty);
+      }
+    };
+
+    loadBoard();
+  }, [route.params]);
+
 
   function handleNumberPress(number) {
     setSelectedNumber((prevNumber) => (prevNumber === number ? null : number));

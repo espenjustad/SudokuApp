@@ -4,10 +4,16 @@ import Homescreen from "./screens/Homescreen";
 import Optionsscreen from "./screens/Optionsscreen";
 import GameScreen from "./screens/GameScreen";
 import CreateBoardScreen from "./screens/CreateBoardScreen";
+import { createSudokuDirectory, setupInitialBoards } from "./utils/SudokuUtils";
+import React, {useState, useEffect } from 'react';
+
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  useEffect(() => {
+    createSudokuDirectory();
+  }, []); 
   return (
     <NavigationContainer>
       <Stack.Navigator>
