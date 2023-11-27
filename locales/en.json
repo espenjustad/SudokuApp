@@ -11,6 +11,12 @@
     "easy": "Easy",
     "main-menu": "Main Menu",
     "remove": "Remove",
-    "mark": "Mark/Unmark"
+    "mark": "Mark/Unmark",
+    "select-difficulty": "Select Difficulty",
+    "save": "Save Board",
+    "congratulations": "Congratulations!\n Your solution is correct :)",
+    "wrong-board": "Sorry!\nYour solution is incorrect :(",
+    "start-new-game": "Start New Game"
+
 
 }

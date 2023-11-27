@@ -1,36 +1,38 @@
-import { StyleSheet, TouchableOpacity, View, Text} from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Text, Modal} from 'react-native';
 import Board from '../components/Board';
 import NumberSelector from '../components/NumberSelector';
-import React, {useState} from 'react';
+import React, {useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 
 
-export default function GameScreen() {
+export default function GameScreen({ navigation }) {
   const {t} = useTranslation()
   const [selectedNumber, setSelectedNumber] = useState(null)
   const [removeSelected, setRemoveSelected] = useState(false)
   const [markSelected, setMarkSelected] = useState(false)
   const [markedCell, setMarkedCell] = useState({row: null, column: null});
+  const [boardIsCorrect, setBoardIsCorrect] = useState(false)
+  const [boardIsFinished, setBoardIsFinished] = useState(false)
 
   const [SudokuData, setSudokuData] = useState([
-    [5, 3, null,  null, 7, null,  null, null, null],
-    [6, null, null, 1, 9, 5, null, null, null],
-    [null, 9, 8,  null, null, null, null, 6, null],
-    [8, null, null, null, 6, null, null, null, 3],
-    [4, null, null, 8, null, 3, null, null, 1],
-    [7, null, null, null, 2, null, null, null, 6],
-    [null, 6, null, null, null, null, 2, 8, null],
-    [null, null, null, 4, 1, 9, null, null, 5],
-    [null, null, null, null, 8, null, null, 7, 9],
+    [5, 3, 4, 6, 7, 8, 9, 1, 2],
+    [6, 7, 2, 1, 9, 5, 3, 4, 8],
+    [1, 9, 8, 3, 4, 2, 5, 6, 7],
+    [8, 5, 9, 7, 6, 1, 4, 2, 3],
+    [4, 2, 6, 8, 5, 3, 7, 9, 1],
+    [7, 1, 3, 9, 2, 4, 8, 5, 6],
+    [9, 6, 1, 5, 3, 7, 2, 8, 4],
+    [2, 8, 7, 4, 1, 9, 6, 3, 5],
+    [3, 4, 5, 2, 8, 6, 1, 7, null], // One cell with null
   ])
 
+  useEffect(() => {
+    checkIfBoardIsFilled();
+  }, [SudokuData]);
+
   function handleNumberPress(number) {
-    if(number == selectedNumber) {
-      setSelectedNumber(null)
-    } else {
-      setSelectedNumber(number)
-    }
+    setSelectedNumber((prevNumber) => (prevNumber === number ? null : number));
   }
 
   function handleCellPress(rowIndex, columnIndex) {
@@ -52,7 +54,7 @@ export default function GameScreen() {
       }
       return newData;
     });
-
+    checkIfBoardIsFilled()
   }
 
   function handleRemoveNumber() {
@@ -68,11 +70,83 @@ export default function GameScreen() {
     }
    setMarkSelected(!markSelected)
   }
+
+  function checkIfBoardIsFilled() {
+    for (let i = 0; i < SudokuData.length; i++) {
+      for (let j = 0; j < SudokuData[i].length; j++) {
+        if (SudokuData[i][j] === null) {
+          return false;
+        }
+      }
+    }
+    setBoardIsFinished(true);
+    checkIfBoardIsCorrect()
+  }
+
+  function checkIfBoardIsCorrect() {
+    for (let i = 0; i < SudokuData.length; i++) {
+      const rowSet = new Set(SudokuData[i].filter((num) => num !== null));
+      if (rowSet.size !== 9) {
+        setBoardIsCorrect(false);
+        return;
+      }
+    }
+
+    for (let j = 0; j < 9; j++) {
+      const columnSet = new Set();
+      for (let i = 0; i < SudokuData.length; i++) {
+        if (SudokuData[i][j] !== null) {
+          columnSet.add(SudokuData[i][j]);
+        }
+      }
+      if (columnSet.size !== 9) {
+        setBoardIsCorrect(false);
+        return;
+      }
+    }
+  
+    for (let gridRow = 0; gridRow < 3; gridRow++) {
+      for (let gridCol = 0; gridCol < 3; gridCol++) {
+        const gridSet = new Set();
+        for (let i = 0; i < 3; i++) {
+          for (let j = 0; j < 3; j++) {
+            const cellValue = SudokuData[gridRow * 3 + i][gridCol * 3 + j];
+            if (cellValue !== null) {
+              gridSet.add(cellValue);
+            }
+          }
+        }
+        if (gridSet.size !== 9) {
+          setBoardIsCorrect(false);
+          return;
+        }
+      }
+    }
+    setBoardIsCorrect(true);
+  }
+  
   
 
 
     return(
         <View style={styles.container}>
+            <Modal animationType="slide" visible={boardIsFinished} onRequestClose={() => navigation.navigate('Options')}>
+                <View style={styles.container}>
+                    <View >
+                    {boardIsCorrect ? (
+                      <Text style={styles.result}>{t('congratulations')}</Text>
+                    ) : (
+                      <Text style={styles.result}>{t('wrong-board')}</Text>
+                    )}
+                    </View>
+                    <TouchableOpacity
+                    style={styles.newGameButton}
+                    onPress={() => navigation.navigate("Options")}
+                    >
+                    <Text style={styles.selectedText}>{t('start-new-game')}</Text>
+                    </TouchableOpacity>
+                </View>
+              </Modal>
              <Board
                 sudokuData={SudokuData}
                 onPress={(rowIndex, columnIndex) => handleCellPress(rowIndex, columnIndex)}
@@ -132,6 +206,14 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         marginLeft: 20
       },
+      newGameButton: {
+        backgroundColor: '#001021',
+        padding: 10,
+        borderRadius: 10,
+        borderColor: 'black',
+        borderWidth: 2,
+        marginBottom: 15
+      },
       buttonText: {
         fontSize: 25,
         color: 'black',
@@ -140,5 +222,17 @@ const styles = StyleSheet.create({
       selectedText: {
         fontSize: 25,
         color: 'white',
+      },
+      result: {
+        fontSize: 20,
+        backgroundColor: 'white',
+        marginLeft: 10,
+        marginRight: 10,
+        padding: 10,
+        borderColor: '#001021',
+        borderWidth: 2,
+        marginBottom: 20,
+        alignItems: 'center',
+        justifyContent:'center'
       },
 });

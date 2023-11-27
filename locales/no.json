@@ -11,5 +11,11 @@
     "easy": "Lett",
     "main-menu": "Hovedmeny",
     "remove": "Fjern",
-    "mark": "Marker/Fjern Markering"
+    "mark": "Marker/Fjern Markering",
+    "select-difficulty": "Velg Vanskelighetsgrad",
+    "save": "Lagre Brett",
+    "congratulations": "Gratulerer!\n Løsningen din er riktig :)",
+    "wrong-board": "Beklager!\nLøsningen din er ikke riktig :(",
+    "start-new-game": "Start Nytt Spill"
+
 }

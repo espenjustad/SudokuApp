@@ -30,7 +30,7 @@ export default function SudokuHomeScreen({ navigation }) {
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('CreateNewBoard')}
+        onPress={() => navigation.navigate('Create Board')}
       >
         <Text style={styles.buttonText}>{t('create-game')}</Text>
       </TouchableOpacity>
