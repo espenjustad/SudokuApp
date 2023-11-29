@@ -3,7 +3,7 @@ import Board from '../components/Board';
 import NumberSelector from '../components/NumberSelector';
 import React, {useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { loadSudokuBoard, loadAllSudokuBoards } from '../utils/SudokuUtils';
+import { loadSudokuBoard } from '../utils/SudokuUtils';
 
 
 
@@ -25,7 +25,6 @@ export default function GameScreen({ navigation, route }) {
     const { difficulty } = route.params;
     const loadBoard = async () => {
       const boardData = await loadSudokuBoard(difficulty);
-      console.log(boardData)
       if (boardData) {
         setSudokuData(boardData);
       } else {
@@ -54,13 +53,13 @@ export default function GameScreen({ navigation, route }) {
           setMarkedCell({ row: rowIndex, column: columnIndex });
         }
       } else {
-        if(selectedNumber !== null) {
+        if(selectedNumber !== null && newData[rowIndex][columnIndex] == null) {
           newData[rowIndex][columnIndex] = selectedNumber;
+          checkIfBoardIsFilled(newData)
         }
       }
       return newData;
     });
-    checkIfBoardIsFilled()
   }
 
   function handleRemoveNumber() {
@@ -77,19 +76,19 @@ export default function GameScreen({ navigation, route }) {
    setMarkSelected(!markSelected)
   }
 
-  function checkIfBoardIsFilled() {
-    for (let i = 0; i < SudokuData.length; i++) {
-      for (let j = 0; j < SudokuData[i].length; j++) {
-        if (SudokuData[i][j] === null) {
+  function checkIfBoardIsFilled(sudokuData) {
+    for (let i = 0; i < sudokuData.length; i++) {
+      for (let j = 0; j < sudokuData[i].length; j++) {
+        if (sudokuData[i][j] === null) {
           return false;
         }
       }
     }
     setBoardIsFinished(true);
-    checkIfBoardIsCorrect()
+    checkIfBoardIsCorrect(sudokuData)
   }
 
-  function checkIfBoardIsCorrect() {
+  function checkIfBoardIsCorrect(SudokuData) {
     for (let i = 0; i < SudokuData.length; i++) {
       const rowSet = new Set(SudokuData[i].filter((num) => num !== null));
       if (rowSet.size !== 9) {

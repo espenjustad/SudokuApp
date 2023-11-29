@@ -1,4 +1,3 @@
-// Board.js
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Cell from './Cell';
@@ -42,14 +41,14 @@ const styles = StyleSheet.create({
     flex: 1
   },
   cell: {
-    flex: 1, // Ensure the cell fills its parent
+    flex: 1, 
   },
   bottomBorder: {
-    borderBottomWidth: 4, // Thick border for the bottom row of each 3x3 square
+    borderBottomWidth: 4, 
     borderBottomColor: 'black',
 },
   rightBorder: {
-    borderRightWidth: 4, // Thick border for the right of every third column
+    borderRightWidth: 4, 
     borderRightColor: 'black',
   },
 });

@@ -4,7 +4,7 @@
     "show-description": "Beskrivelse & Regler",
     "start": "Start Spill",
     "close": "Lukk",
-    "rules": "Sudoku-rutenettet består av 9x9 plasser. \nDu kan bare bruke tall fra 1 til 9. \nHver 3x3 blokk kan bare inneholde tall fra 1 til 9.\nHver vertikale kolonne kan bare inneholde tall fra 1 til 9.\nHver horisontale rad kan bare inneholde tall fra 1 til 9. \nHvert tall i 3x3 blokken, vertikale kolonnen eller horisontale raden kan bare brukes én gang. \nSpillet er over når hele Sudoku-rutenettet er riktig fylt med tall.",
+    "rules": "REGLER\n\nSudoku-rutenett består av 9x9 felt.\nDu kan bare bruke tall fra 1 til 9.\nHver 3x3 blokk kan bare inneholde tall fra 1 til 9.\nHver vertikale kolonne kan bare inneholde tall fra 1 til 9.\nHver horisontale rad kan bare inneholde tall fra 1 til 9.\nHvert tall i 3x3 blokken, vertikale kolonnen eller horisontale raden kan bare brukes én gang.\nSpillet er over når hele Sudoku-rutenettet er riktig fylt med tall.\n\nBESKRIVELSE\n\nDenne appen har for øyeblikket ett brett for hver vanskelighetsgrad.\nHvis du har fullført dem alle, kan du opprette et nytt brett, og det vil erstatte brettet med den vanskelighetsgraden du velger.",
     "create-game": "Opprett Brett",
     "hard": "Vanskelig",
     "medium": "Middels",
@@ -14,8 +14,10 @@
     "mark": "Marker/Fjern Markering",
     "select-difficulty": "Velg Vanskelighetsgrad",
     "save": "Lagre Brett",
-    "congratulations": "Gratulerer!\n Løsningen din er riktig :)",
+    "congratulations": "Gratulerer!\nLøsningen din er riktig :)",
     "wrong-board": "Beklager!\nLøsningen din er ikke riktig :(",
-    "start-new-game": "Start Nytt Spill"
-
+    "start-new-game": "Start Nytt Spill",
+    "alert-title": "Brett lagret",
+    "save-message": "Brettet er lagret. Velg vanskelighetsgraden du valgte for å spille det!",
+    "return": "Gå tilbake"
 }

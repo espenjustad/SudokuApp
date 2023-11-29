@@ -1,14 +1,14 @@
-import { StyleSheet, TouchableOpacity, View, Text} from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Text, Alert} from 'react-native';
 import Board from '../components/Board';
 import NumberSelector from '../components/NumberSelector';
 import React, {useState} from 'react';
 import { useTranslation } from 'react-i18next';
 import SelectDropdown from 'react-native-select-dropdown'
-import { saveSudokuBoard } from '../utils/SudokuUtils';
+import { saveSudokuBoard, replaceLoadedBoard } from '../utils/SudokuUtils';
 
 
 
-export default function CreateBoardScreen() {
+export default function CreateBoardScreen({ navigation }) {
   
   const {t} = useTranslation()
   const choices = [t('easy'), t('medium'), t('hard')]
@@ -65,13 +65,26 @@ export default function CreateBoardScreen() {
   }
 
   function handleSave() {
-    saveSudokuBoard(selectedDifficulty, SudokuData)
+    if (selectedDifficulty && SudokuData.length > 0) {
+      console.log(SudokuData)
+      replaceLoadedBoard(selectedDifficulty, SudokuData)
         .then(() => {
-            console.log(`Sudoku board for ${selectedDifficulty} saved successfully.`);
+          console.log(`Sudoku board for ${selectedDifficulty} saved successfully.`);
+          Alert.alert(t('alert-title'), t('save-message'), [
+            {
+              text: t(''),
+              onPress: () => navigation.navigate('Options'),
+              style: styles.normalButton,
+            }
+        ]);
+          navigation.navigate('Options')
         })
         .catch((error) => {
-            console.error('Error saving Sudoku board:', error);
-  });
+          console.error('Error saving/replacing Sudoku board:', error);
+        });
+    } else {
+      console.warn('Please select a difficulty and provide Sudoku data.');
+    }
   }
   
     return(
@@ -164,7 +177,6 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         borderWidth: 2,
         marginBottom: 15,
-        flex: 1
       },
       saveButtonText: {
         fontSize: 30,

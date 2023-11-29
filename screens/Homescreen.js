@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
 
   title: {
     color: 'black',
-    fontSize: 50,  // Adjust the font size as needed
+    fontSize: 50,  
     fontWeight: 'bold',
     backgroundColor: 'white',
     borderColor: '#001021',
